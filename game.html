@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickleball Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="scoreboard">
+        <div class="player-score">Player: <span id="playerScore">0</span></div>
+        <div class="ai-score">AI: <span id="aiScore">0</span></div>
+    </div>
+
+    <div class="game-container">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+    </div>
+
+    <div class="serve-timer">
+        Serve in: <span id="serveTimer">3</span>
+    </div>
+
+    <script src="game.js"></script>
+
+    <div class="menu-container">
+        <a href="index.html" class="btn return-btn">Return to Menu</a>
+    </div>
+
+</body>
+</html>
+

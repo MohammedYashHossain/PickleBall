@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #25a14e;
+    margin: 0;
+    padding: 0;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+canvas {
+    border: 4px solid black;
+    background-color: #87CEEB; /* Light blue court */
+}
+
+.serve-timer {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.menu-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.return-btn {
+    background: #ef8393;
+    color: #000000;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.return-btn:hover {
+    background: #df354e; /* Dark greenish blue */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.4rem;
+    border-radius: 14px;
+    transform: scale(1.1);
+}

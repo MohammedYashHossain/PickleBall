@@ -1,0 +1,96 @@
+<!-- Pickle.io HTML -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pickle.io - Play Now</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Pickle.io</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#play-menu">Play Now</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <h2>Join the Ultimate Online Pickleball Experience!</h2>
+            <p>Play online and enjoy pickleball from the comfort of your own home.</p>
+            <a href="game.html" class="btn">Play Now!</a>
+        </div>
+    </section>
+
+    <section id="login">
+        <div class="container">
+            <h2>Login to Your Account</h2>
+            <form>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#signup">Sign Up</a></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="signup">
+        <div class="container">
+            <h2>Create an Account</h2>
+            <form>
+                <label for="new-username">Username</label>
+                <input type="text" id="new-username" name="new-username" placeholder="Choose a username" required>
+
+                <label for="new-password">Password</label>
+                <input type="password" id="new-password" name="new-password" placeholder="Choose a password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="play-menu">
+        <div class="container">
+            <h2>Select Your Paddle</h2>
+            <div class="maps">
+                <div class="map">
+                    <img src="images/Paddle Template.png" alt="Classic Paddle">
+                    <button class="map-btn">Classic Paddle</button>
+                </div>
+                <div class="map">
+                    <img src="images/olympics.png" alt="Aqua Paddle">
+                    <button class="map-btn">Aqua Paddle</button>
+                </div>
+                <div class="map">
+                    <img src="images/arctic.png" alt="Flame Paddle">
+                    <button class="map-btn">Flame Paddle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pickle.io. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+</body>
+</html>

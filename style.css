@@ -1,0 +1,218 @@
+/* Apply Poppins Bold to the whole page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Bold */
+}
+
+body {
+    line-height: 1.6;
+    background-color: #d4e157; /* Light pickle green */
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #558b2f; /* Dark pickle green */
+    color: #fff;
+    padding: 1rem 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease-out;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b; /* Change text color */
+    transform: scale(1.1); /* Slightly enlarges */
+    text-decoration: underline;
+    transition: all 0.3s ease-out;
+    transform-origin: center; /* Keeps the text centered */
+}
+
+header h1 {
+    float: left;
+    margin: 0;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#hero {
+    background: linear-gradient(to right, #81c784, #dcedc8);
+    height: 400px;
+    color: #333;
+    text-align: center;
+    padding-top: 120px;
+}
+
+#hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.btn {
+    background: #ffeb3b;
+    color: #333;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.btn:hover {
+    background: #1b5e20; /* Dark greenish blue */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1.4rem;
+    border-radius: 14px;
+    transform: scale(1.1);
+}
+
+
+section {
+    padding: 40px 0;
+}
+
+#login, #signup {
+    background: #f1f8e9;
+    border: 1px solid #8bc34a;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#login h2, #signup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #33691e;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #558b2f;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #8bc34a;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background: #8bc34a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #558b2f;
+}
+
+footer {
+    background: #33691e;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+}
+
+#play-menu {
+    background-color: #f1f8e9; /* Light pickle-themed background */
+    padding: 40px 0;
+    text-align: center;
+}
+
+#play-menu h2 {
+    margin-bottom: 20px;
+    color: #33691e;
+}
+
+.maps {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.map {
+    text-align: center;
+    background: #e0f7fa; /* Light blue background for variety */
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.map-btn {
+    background: #8bc34a;
+    color: #fff;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+.map-btn:hover {
+    background: #58ccdb;
+    color: #fff;
+    padding: 5px 8px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    transform: scale(1.1);
+  
+  
+}
