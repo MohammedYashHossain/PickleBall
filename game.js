@@ -35,8 +35,8 @@ let ball = {
     dx: 0,
     dy: 0,
     speed: 1.5, // Slower starting speed
-    maxSpeed: 4, // \ maximum speed
-    acceleration: 0.005, // Much slower acceleration
+    maxSpeed: 4, // \ Maximum speed
+    acceleration: 0.005, // Slower acceleration
     bounceReduction: 0.85, // More controlled bounce reduction
     bounced: false
 };
@@ -73,7 +73,7 @@ function startServeTimer() {
 
 // Court and Background, maybe change to own image?
 function drawCourt() {
-    ctx.fillStyle = "#4CAF50"; // Green bottom section
+    ctx.fillStyle = "#4CAF50"; // Area around the court
     ctx.fillRect(0, canvas.height, canvas.width, 100);
 
     ctx.fillStyle = "#87CEEB"; // Light blue court
