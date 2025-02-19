@@ -10,21 +10,21 @@ const paddleHeight = 100;
 const ballRadius = 14;
 const netX = canvas.width / 2 - 5;
 const kitchenWidth = 140;
-const kitchenHeight = canvas.height / 3; // Defines the kitchen area
+const kitchenHeight = canvas.height / 3; // Makes the kitchen
 
-// Fixed serve positions
+// Serve from same place
 const playerServeX = 80;
 const playerServeY = 100;
 const aiServeX = canvas.width - 80 - ballRadius;
 const aiServeY = 100;
 
-// Initial positions
+// Starting Spots
 const initialPlayerX = 100;
 const initialPlayerY = canvas.height / 2 - paddleHeight / 2;
 const initialAiX = canvas.width - 120;
 const initialAiY = canvas.height / 2 - paddleHeight / 2;
 
-// Player and AI paddles
+// Player & AI paddles
 let playerPaddle = { x: initialPlayerX, y: initialPlayerY };
 let aiPaddle = { x: initialAiX, y: initialAiY, speed: 2 };
 
@@ -35,7 +35,7 @@ let ball = {
     dx: 0,
     dy: 0,
     speed: 1.5, // Slower starting speed
-    maxSpeed: 4, // Caps the maximum speed
+    maxSpeed: 4, // \ maximum speed
     acceleration: 0.005, // Much slower acceleration
     bounceReduction: 0.85, // More controlled bounce reduction
     bounced: false
@@ -43,7 +43,7 @@ let ball = {
 
 let ballInPlay = false;
 let serveReady = false;
-let lastHitter = null; // Track who last hit the ball
+let lastHitter = null; // Track who last hit the ball, maybe make a hit tracker
 
 // Scores & Serving Rules
 let playerScore = 0;
@@ -51,13 +51,13 @@ let aiScore = 0;
 let playerServing = true;
 let serveTimer = 3;
 
-// **Update Score Display**
+// Update Score Display
 function updateScoreDisplay() {
     document.getElementById("playerScore").innerText = playerScore;
     document.getElementById("aiScore").innerText = aiScore;
 }
 
-// **Start Serve Timer**
+// Serve Timer
 function startServeTimer() {
     serveTimer = 3;
     document.getElementById("serveTimer").innerText = serveTimer;
@@ -71,7 +71,7 @@ function startServeTimer() {
     }, 1000);
 }
 
-// **Draw Background & Court**
+// Court and Background, maybe change to own image?
 function drawCourt() {
     ctx.fillStyle = "#4CAF50"; // Green bottom section
     ctx.fillRect(0, canvas.height, canvas.width, 100);
@@ -86,7 +86,7 @@ function drawCourt() {
     ctx.fillRect(netX, 0, 10, canvas.height);
 }
 
-// **Draw Paddles**
+// *Make Paddles
 function drawPaddle(paddle) {
     ctx.fillStyle = "#008000";
     ctx.fillRect(paddle.x, paddle.y, paddleWidth, paddleHeight);
@@ -101,7 +101,7 @@ function drawBall() {
     ctx.closePath();
 }
 
-// **Move AI Paddle (Pong Style)**
+// **Move AI Paddle (Pong Style), maybe change to different
 function moveAIPaddle() {
     if (ball.dx > 0 && ballInPlay) {
         let targetY = ball.y - paddleHeight / 2;
