@@ -26,7 +26,7 @@ body {
 
 canvas {
     border: 4px solid black;
-    background-color: #87CEEB; /* Light blue court */
+    background-color: #87CEEB; /* Court Color */
 }
 
 .serve-timer {
@@ -53,7 +53,7 @@ canvas {
 }
 
 .return-btn:hover {
-    background: #df354e; /* Dark greenish blue */
+    background: #df354e; /* Button Hover Color Maybeee */
     color: #fff;
     padding: 10px 20px;
     font-size: 1.4rem;
