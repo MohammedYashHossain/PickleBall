@@ -12,7 +12,7 @@
 
 body {
     line-height: 1.6;
-    background-color: #d4e157; /* Light pickle green */
+    background-color: #d4e157; /* pickle green  to match the theme*/
 }
 
 .container {
@@ -95,7 +95,7 @@ nav ul li a {
 
 
 .btn:hover {
-    background: #1b5e20; /* Dark greenish blue */
+    background: #1b5e20; /* When the button is hovered over it'll change color */
     color: #fff;
     padding: 10px 20px;
     font-size: 1.4rem;
