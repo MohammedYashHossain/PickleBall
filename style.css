@@ -1,50 +1,50 @@
 /* Created By: Mohammed Yash Hossain */
 /* Date 11/18/24 */
+/* Enhanced by Claude */
 
-/* Apply Poppins Bold to the whole page */
+/* Base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    font-weight: 700; /* Bold */
 }
 
 body {
     line-height: 1.6;
-    background-color: #d4e157; /* pickle green  to match the theme*/
+    background-color: #e8f5e9; /* Lighter pickle green background for better readability */
+    color: #333;
 }
 
 .container {
-    width: 80%;
+    width: 85%;
+    max-width: 1200px;
     margin: auto;
     overflow: hidden;
 }
 
+/* Header styling */
 header {
-    background: #558b2f; /* Dark pickle green */
+    background: linear-gradient(to right, #558b2f, #33691e); /* Gradient for more depth */
     color: #fff;
     padding: 1rem 0;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease-out;
-}
-
-nav ul li a:hover {
-    color: #ffeb3b; /* Change text color */
-    transform: scale(1.1); /* Slightly enlarges */
-    text-decoration: underline;
-    transition: all 0.3s ease-out;
-    transform-origin: center; /* Keeps the text centered */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 header h1 {
     float: left;
     margin: 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+header h1 i {
+    margin-right: 10px;
+    font-size: 1.6rem;
 }
 
 nav {
@@ -53,169 +53,682 @@ nav {
 
 nav ul {
     list-style: none;
+    display: flex;
+    align-items: center;
+    height: 40px;
 }
 
 nav ul li {
     display: inline;
-    margin-left: 15px;
+    margin-left: 25px;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease-out;
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
 }
 
+nav ul li a i {
+    margin-right: 5px;
+}
+
+nav ul li a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #ffeb3b;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover:after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b;
+}
+
+/* Hero section */
 #hero {
-    background: linear-gradient(to right, #81c784, #dcedc8);
-    height: 400px;
-    color: #333;
+    background: linear-gradient(135deg, #81c784, #a5d6a7, #c8e6c9);
+    height: 500px;
+    color: #1b5e20;
     text-align: center;
-    padding-top: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 #hero h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 #hero p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 30px;
+    font-weight: 400;
 }
 
 .btn {
     background: #ffeb3b;
     color: #333;
-    padding: 8px 10px;
+    padding: 12px 25px;
     text-decoration: none;
     font-size: 1.2rem;
-    border-radius: 10px;
+    border-radius: 30px;
     transition: all 0.3s ease-in-out;
+    display: inline-block;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.btn i {
+    margin-right: 8px;
+}
 
 .btn:hover {
-    background: #1b5e20; /* When the button is hovered over it'll change color */
+    background: #1b5e20;
     color: #fff;
-    padding: 10px 20px;
-    font-size: 1.4rem;
-    border-radius: 14px;
-    transform: scale(1.1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Features section */
+#features {
+    padding: 60px 0;
+    background-color: #fff;
+}
 
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 10px;
+    background: #f1f8e9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: #558b2f;
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+    color: #33691e;
+}
+
+.feature p {
+    font-weight: 400;
+    color: #555;
+}
+
+/* Form sections (Login/Signup) */
 section {
-    padding: 40px 0;
+    padding: 50px 0;
 }
 
 #login, #signup {
-    background: #f1f8e9;
-    border: 1px solid #8bc34a;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    margin: 20px auto;
+    background: #fff;
+    border: none;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 450px;
+    margin: 30px auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 #login h2, #signup h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #33691e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#login h2 i, #signup h2 i {
+    margin-right: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
 }
 
 form label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: #558b2f;
+    font-weight: 600;
 }
 
 form input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #8bc34a;
-    border-radius: 5px;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border: 1px solid #dcedc8;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    transition: border 0.3s ease;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #8bc34a;
+    box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2);
 }
 
 form button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #8bc34a;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form button i {
+    margin-left: 8px;
 }
 
 form button:hover {
     background: #558b2f;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-footer {
-    background: #33691e;
-    color: #fff;
+.form-footer {
     text-align: center;
-    padding: 10px 0;
-    margin-top: 40px;
+    margin-top: 20px;
+    font-weight: 400;
+    font-size: 0.9rem;
 }
 
-footer p {
-    margin: 0;
+.form-footer a {
+    color: #558b2f;
+    text-decoration: none;
+    font-weight: 600;
 }
 
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Play menu section */
 #play-menu {
-    background-color: #f1f8e9; /* Light pickle-themed background */
-    padding: 40px 0;
+    background-color: #f8fdf5;
+    padding: 60px 0;
     text-align: center;
 }
 
 #play-menu h2 {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #33691e;
+    display: inline-block;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #8bc34a;
+}
+
+#play-menu h2 i {
+    margin-right: 10px;
 }
 
 .maps {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 .map {
     text-align: center;
-    background: #e0f7fa; /* Light blue background for variety */
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: visible;
+}
+
+.map:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.map h3 {
+    color: #33691e;
+    margin-bottom: 15px;
+}
+
+.map-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    overflow: hidden;
     border-radius: 10px;
-    padding: 10px;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #e0f7fa;
+    position: relative;
 }
 
 .map img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    z-index: 2;
+    position: relative;
 }
 
+.map:hover img {
+    transform: scale(1.05);
+}
+
+/* Modified Paddle Effects - External Animation */
+
+/* Remove the existing internal effects */
+.map::before, .map::after {
+    display: none;
+}
+
+/* Common styles for all paddle effects container */
+.map {
+    position: relative;
+}
+
+/* Create containers for the external effects */
+.map::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* Classic Paddle - Green external effects with emoji-like elements */
+.map:nth-child(1)::before {
+    background: repeating-radial-gradient(circle at 120% -20%, 
+                transparent 0, 
+                transparent 10px, 
+                rgba(139, 195, 74, 0.3) 10px, 
+                rgba(139, 195, 74, 0) 20px),
+                repeating-radial-gradient(circle at -20% 120%, 
+                transparent 0, 
+                transparent 10px, 
+                rgba(139, 195, 74, 0.3) 10px, 
+                rgba(139, 195, 74, 0) 20px);
+    box-shadow: 0 0 15px rgba(139, 195, 74, 0.5);
+}
+
+.map:nth-child(1)::after {
+    content: '🎾 🏓 🎾';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg) scale(0);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.map:nth-child(1):hover::after {
+    opacity: 1;
+    transform: translateX(-50%) rotate(5deg) scale(1);
+}
+
+/* Aqua Paddle - Blue water drops around */
+.map:nth-child(2)::before {
+    background: repeating-radial-gradient(circle at 50% 120%, 
+                transparent 0, 
+                transparent 15px, 
+                rgba(33, 150, 243, 0.3) 15px, 
+                rgba(33, 150, 243, 0) 30px);
+    box-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
+    animation: waterRipple 3s infinite linear;
+}
+
+.map:nth-child(2)::after {
+    content: '💦 🌊 💦';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.map:nth-child(2):hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@keyframes waterRipple {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+/* Flame Paddle - Fire emojis and glow */
+.map:nth-child(3)::before {
+    background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 87, 34, 0.3) 0%, 
+                rgba(255, 87, 34, 0) 70%);
+    box-shadow: 0 0 20px rgba(255, 87, 34, 0.6);
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.map:nth-child(3)::after {
+    content: '🔥 🔥 🔥';
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%) translateX(20px);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.map:nth-child(3):hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 15px rgba(255, 87, 34, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(255, 87, 34, 0.8);
+    }
+}
+
+/* Show the external effects on hover */
+.map:hover::before {
+    opacity: 1;
+}
+
+/* Additional floating emoji animations for each paddle on hover */
+.map {
+    overflow: visible;
+}
+
+.map .floating-emoji {
+    position: absolute;
+    font-size: 18px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+}
+
+.map:nth-child(1):hover .floating-emoji.emoji-1 {
+    content: '🎾';
+    top: -30px;
+    left: 20px;
+    animation: floatUpLeft 3s infinite;
+    opacity: 1;
+}
+
+.map:nth-child(1):hover .floating-emoji.emoji-2 {
+    content: '🏓';
+    top: -20px;
+    right: 30px;
+    animation: floatUpRight 2.5s infinite;
+    opacity: 1;
+}
+
+.map:nth-child(2):hover .floating-emoji.emoji-1 {
+    content: '💧';
+    bottom: -25px;
+    left: 30px;
+    animation: floatUpLeft 2s infinite;
+    opacity: 1;
+}
+
+.map:nth-child(2):hover .floating-emoji.emoji-2 {
+    content: '🌊';
+    bottom: -30px;
+    right: 20px;
+    animation: floatUpRight 3.5s infinite;
+    opacity: 1;
+}
+
+.map:nth-child(3):hover .floating-emoji.emoji-1 {
+    content: '🔥';
+    top: 30px;
+    right: -25px;
+    animation: floatRight 2s infinite;
+    opacity: 1;
+}
+
+.map:nth-child(3):hover .floating-emoji.emoji-2 {
+    content: '🔥';
+    bottom: 30px;
+    right: -25px;
+    animation: floatRight 3s infinite 0.5s;
+    opacity: 1;
+}
+
+@keyframes floatUpLeft {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-15px, -30px);
+        opacity: 0;
+    }
+}
+
+@keyframes floatUpRight {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(15px, -30px);
+        opacity: 0;
+    }
+}
+
+@keyframes floatRight {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(25px, 0);
+        opacity: 0;
+    }
+}
+
+/* Paddle-specific button colors */
 .map-btn {
     background: #8bc34a;
     color: #fff;
     border: none;
-    padding: 5px 8px;
-    border-radius: 5px;
+    padding: 8px 15px;
+    border-radius: 25px;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     transition: all 0.3s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
 }
 
-.map-btn:hover {
-    background: #58ccdb;
+.map-btn i {
+    margin-left: 5px;
+    font-size: 0.85rem;
+}
+
+/* Classic Paddle - Green button */
+.map:nth-child(1) .map-btn {
+    background: #8bc34a;
+}
+
+.map:nth-child(1) .map-btn:hover {
+    background: #558b2f;
+    transform: scale(1.05);
+}
+
+/* Aqua Paddle - Blue button */
+.map:nth-child(2) .map-btn {
+    background: #03a9f4;
+}
+
+.map:nth-child(2) .map-btn:hover {
+    background: #0277bd;
+    transform: scale(1.05);
+}
+
+/* Flame Paddle - Red button */
+.map:nth-child(3) .map-btn {
+    background: #ff5722;
+}
+
+.map:nth-child(3) .map-btn:hover {
+    background: #d84315;
+    transform: scale(1.05);
+}
+
+/* Footer styling */
+footer {
+    background: linear-gradient(to right, #33691e, #1b5e20);
     color: #fff;
-    padding: 5px 8px;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    transform: scale(1.1);
-  
-  
+    padding: 25px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+footer p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffeb3b;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header h1 {
+        float: none;
+        text-align: center;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+    
+    nav {
+        float: none;
+        text-align: center;
+    }
+    
+    nav ul {
+        justify-content: center;
+        padding: 10px 0;
+        height: auto;
+    }
+    
+    nav ul li {
+        margin: 0 10px;
+    }
+    
+    #hero {
+        height: auto;
+        padding: 60px 0;
+    }
+    
+    #hero h2 {
+        font-size: 2rem;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 15px;
+    }
 }
