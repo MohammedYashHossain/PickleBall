@@ -10,18 +10,19 @@
     <title>Pickle.io - Play Now</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Pickle.io</h1>
+            <h1><i class="fas fa-table-tennis"></i> Pickle.io</h1>
             <nav>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#play-menu">Play Now</a></li>
-                    <li><a href="#login">Login</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#play-menu"><i class="fas fa-play"></i> Play Now</a></li>
+                    <li><a href="#login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -29,58 +30,99 @@
 
     <section id="hero">
         <div class="container">
-            <h2>Join the Ultimate Online Pickleball Experience!</h2>
-            <p>Play online and enjoy pickleball from the comfort of your own home.</p>
-            <a href="game.html" class="btn">Play Now!</a>
+            <div class="hero-content">
+                <h2>Join the Ultimate Online Pickleball Experience!</h2>
+                <p>Play online and enjoy pickleball from the comfort of your own home.</p>
+                <a href="game.html" class="btn"><i class="fas fa-play-circle"></i> Play Now!</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Multiplayer</h3>
+                    <p>Play with friends or match with players worldwide</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Tournaments</h3>
+                    <p>Compete in daily and weekly tournaments</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-palette"></i>
+                    <h3>Customization</h3>
+                    <p>Personalize your paddle and character</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="login">
         <div class="container">
-            <h2>Login to Your Account</h2>
+            <h2><i class="fas fa-user"></i> Login to Your Account</h2>
             <form>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
                 
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
                 
-                <button type="submit">Login</button>
-                <p>Don't have an account? <a href="#signup">Sign Up!</a></p>
+                <button type="submit">Login <i class="fas fa-arrow-right"></i></button>
+                <p class="form-footer">Don't have an account? <a href="#signup">Sign Up!</a></p>
             </form>
         </div>
     </section>
 
     <section id="signup">
         <div class="container">
-            <h2>Create an Account</h2>
+            <h2><i class="fas fa-user-plus"></i> Create an Account</h2>
             <form>
-                <label for="new-username">Username</label>
-                <input type="text" id="new-username" name="new-username" placeholder="Choose a username" required>
+                <div class="form-group">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" name="new-username" placeholder="Choose a username" required>
+                </div>
 
-                <label for="new-password">Password</label>
-                <input type="password" id="new-password" name="new-password" placeholder="Choose a password" required>
+                <div class="form-group">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="Choose a password" required>
+                </div>
 
-                <button type="submit">Sign Up</button>
+                <button type="submit">Sign Up <i class="fas fa-arrow-right"></i></button>
             </form>
         </div>
     </section>
 
     <section id="play-menu">
         <div class="container">
-            <h2>Select Your Paddle</h2>
+            <h2><i class="fas fa-table-tennis"></i> Select Your Paddle</h2>
             <div class="maps">
                 <div class="map">
-                    <img src="images/Paddle Template.png" alt="Classic Paddle">
-                    <button class="map-btn">Classic Paddle</button>
+                    <div class="map-image">
+                        <img src="images/Paddle Template.png" alt="Classic Paddle">
+                    </div>
+                    <h3>Classic Paddle</h3>
+                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
                 </div>
                 <div class="map">
-                    <img src="images/olympics.png" alt="Aqua Paddle">
-                    <button class="map-btn">Aqua Paddle</button>
+                    <div class="map-image">
+                        <img src="images/olympics.png" alt="Aqua Paddle">
+                    </div>
+                    <h3>Aqua Paddle</h3>
+                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
                 </div>
                 <div class="map">
-                    <img src="images/arctic.png" alt="Flame Paddle">
-                    <button class="map-btn">Flame Paddle</button>
+                    <div class="map-image">
+                        <img src="images/arctic.png" alt="Flame Paddle">
+                    </div>
+                    <h3>Flame Paddle</h3>
+                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
                 </div>
             </div>
         </div>
@@ -88,10 +130,15 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Pickle.io. All rights reserved. Created By: Mohammed Hossain</p>
+            <div class="footer-content">
+                <p>&copy; 2025 Pickle.io. All rights reserved. Created By: Mohammed Hossain</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
-
-
 </body>
 </html>
