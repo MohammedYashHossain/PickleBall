@@ -1,62 +1,257 @@
 /* Created By: Mohammed Yash Hossain */
 /* Date 1/6/25 */
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #25a14e;
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --accent-color: #FF9800;
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --court-color: #87CEEB;
+    --kitchen-color: #FF8C00;
+    --net-color: #333;
+}
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    height: 50px;
+    object-fit: contain;
 }
 
 .scoreboard {
     display: flex;
-    justify-content: center;
-    gap: 50px;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
+    align-items: center;
+    gap: 20px;
+    background: var(--primary-color);
+    padding: 10px 30px;
+    border-radius: 8px;
+    color: white;
+}
+
+.score {
+    text-align: center;
+}
+
+.score-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.score-divider {
+    font-size: 2rem;
+    font-weight: 700;
+    opacity: 0.5;
+}
+
+.game-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.control-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.game-main {
+    position: relative;
 }
 
 .game-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-canvas {
-    border: 4px solid black;
-    background-color: #87CEEB; /* Court Color */
+#gameCanvas {
+    display: block;
+    background: var(--court-color);
 }
 
 .serve-timer {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 8px;
     text-align: center;
-    margin-top: 20px;
+    display: none;
 }
 
-.return-btn {
-    background: #ef8393;
-    color: #000000;
-    padding: 8px 10px;
-    text-decoration: none;
+.serve-timer.active {
+    display: block;
+    animation: pulse 1s infinite;
+}
+
+.timer-label {
     font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-    display: inline-block;
+    margin-bottom: 5px;
 }
 
-.return-btn:hover {
-    background: #df354e; /* Button Hover Color Maybeee */
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 1.4rem;
-    border-radius: 14px;
-    transform: scale(1.1);
+.timer-value {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.game-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.overlay-content h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.resume-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.restart-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.menu-btn {
+    background: var(--accent-color);
+    color: white;
+}
+
+.game-tutorial {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+}
+
+.tutorial-content h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.tutorial-content ul {
+    list-style-position: inside;
+    color: var(--text-color);
+}
+
+.tutorial-content li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@media (max-width: 768px) {
+    .game-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .game-tutorial {
+        position: static;
+        margin-top: 20px;
+        max-width: 100%;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
 }

@@ -6,29 +6,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pickleball Game</title>
+    <title>Pickleball.io - Play Pickleball Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
-    <div class="scoreboard">
-        <div class="player-score">Player: <span id="playerScore">0</span></div>
-        <div class="ai-score">AI: <span id="aiScore">0</span></div>
+    <div class="game-wrapper">
+        <header class="game-header">
+            <div class="logo">
+                <img src="Logo 1.png" alt="Pickleball.io Logo" class="logo-img">
+            </div>
+            <div class="scoreboard">
+                <div class="score player-score">
+                    <div class="score-label">Player</div>
+                    <div class="score-value" id="playerScore">0</div>
+                </div>
+                <div class="score-divider">-</div>
+                <div class="score ai-score">
+                    <div class="score-label">AI</div>
+                    <div class="score-value" id="aiScore">0</div>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button id="pauseBtn" class="control-btn"><i class="fas fa-pause"></i></button>
+                <button id="soundBtn" class="control-btn"><i class="fas fa-volume-up"></i></button>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <div class="game-container">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+                <div class="serve-timer" id="serveTimer">
+                    <div class="timer-label">Serve in</div>
+                    <div class="timer-value">3</div>
+                </div>
+            </div>
+        </main>
+
+        <div class="game-overlay" id="gameOverlay">
+            <div class="overlay-content">
+                <h2>Game Paused</h2>
+                <button class="btn resume-btn">Resume Game</button>
+                <button class="btn restart-btn">Restart Game</button>
+                <a href="index.html" class="btn menu-btn">Main Menu</a>
+            </div>
+        </div>
+
+        <div class="game-tutorial">
+            <div class="tutorial-content">
+                <h3>How to Play</h3>
+                <ul>
+                    <li>Move your paddle with the mouse</li>
+                    <li>Click to hit the ball</li>
+                    <li>Score points by making the AI miss</li>
+                    <li>First to 11 points wins!</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="game-container">
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
-    </div>
-
-    <div class="serve-timer">
-        Serve in: <span id="serveTimer">3</span>
-    </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="game.js"></script>
-
-    <div class="menu-container">
-        <a href="index.html" class="btn return-btn">Return to Menu</a>
-    </div>
-
 </body>
 </html>
-

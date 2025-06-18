@@ -5,242 +5,378 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 // Game constants
-const paddleWidth = 15;
-const paddleHeight = 100;
-const ballRadius = 14;
-const netX = canvas.width / 2 - 5;
-const kitchenWidth = 140;
-const kitchenHeight = canvas.height / 3; // Makes the kitchen
+const PADDLE_WIDTH = 15;
+const PADDLE_HEIGHT = 100;
+const BALL_RADIUS = 8;
+const NET_WIDTH = 10;
+const KITCHEN_WIDTH = 140;
+const COURT_WIDTH = canvas.width;
+const COURT_HEIGHT = canvas.height;
 
-// Serve from same place
-const playerServeX = 80;
-const playerServeY = 100;
-const aiServeX = canvas.width - 80 - ballRadius;
-const aiServeY = 100;
-
-// Starting Spots
-const initialPlayerX = 100;
-const initialPlayerY = canvas.height / 2 - paddleHeight / 2;
-const initialAiX = canvas.width - 120;
-const initialAiY = canvas.height / 2 - paddleHeight / 2;
-
-// Player & AI paddles
-let playerPaddle = { x: initialPlayerX, y: initialPlayerY };
-let aiPaddle = { x: initialAiX, y: initialAiY, speed: 2 };
-
-// Ball properties
-let ball = {
-    x: playerServeX,
-    y: playerServeY,
-    dx: 0,
-    dy: 0,
-    speed: 1.5, // Slower starting speed
-    maxSpeed: 4, // \ Maximum speed
-    acceleration: 0.005, // Slower acceleration
-    bounceReduction: 0.85, // More controlled bounce reduction
-    bounced: false
+// Court dimensions
+const COURT = {
+    width: COURT_WIDTH,
+    height: COURT_HEIGHT,
+    netX: COURT_WIDTH / 2 - NET_WIDTH / 2,
+    kitchenWidth: KITCHEN_WIDTH,
+    kitchenHeight: COURT_HEIGHT / 3
 };
 
-let ballInPlay = false;
-let serveReady = false;
-let lastHitter = null; // Track who last hit the ball, maybe make a hit tracker
+// Game state
+let gameState = {
+    isPaused: false,
+    isServing: true,
+    serveTimer: 3,
+    lastHitter: null,
+    playerScore: 0,
+    aiScore: 0,
+    playerServing: true,
+    rallyCount: 0,
+    gameOver: false
+};
 
-// Scores & Serving Rules
-let playerScore = 0;
-let aiScore = 0;
-let playerServing = true;
-let serveTimer = 3;
+// Sound effects
+const sounds = {
+    hit: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3'] }),
+    score: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3'] }),
+    serve: new Howl({ src: ['https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3'] })
+};
 
-// Update Score Display
-function updateScoreDisplay() {
-    document.getElementById("playerScore").innerText = playerScore;
-    document.getElementById("aiScore").innerText = aiScore;
+// Player & AI paddles
+const playerPaddle = {
+    x: 100,
+    y: COURT_HEIGHT / 2 - PADDLE_HEIGHT / 2,
+    width: PADDLE_WIDTH,
+    height: PADDLE_HEIGHT,
+    speed: 0,
+    maxSpeed: 15
+};
+
+const aiPaddle = {
+    x: COURT_WIDTH - 100 - PADDLE_WIDTH,
+    y: COURT_HEIGHT / 2 - PADDLE_HEIGHT / 2,
+    width: PADDLE_WIDTH,
+    height: PADDLE_HEIGHT,
+    speed: 0,
+    maxSpeed: 12,
+    reactionTime: 0.1,
+    predictionError: 0.2
+};
+
+// Ball properties
+const ball = {
+    x: 0,
+    y: 0,
+    radius: BALL_RADIUS,
+    dx: 0,
+    dy: 0,
+    speed: 8,
+    maxSpeed: 15,
+    spin: 0,
+    lastHitY: 0,
+    inPlay: false
+};
+
+// Initialize game
+function initGame() {
+    resetBall();
+    updateScoreDisplay();
+    startServeTimer();
+    setupEventListeners();
 }
 
-// Serve Timer
+// Event listeners
+function setupEventListeners() {
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("click", handleClick);
+    document.getElementById("pauseBtn").addEventListener("click", togglePause);
+    document.getElementById("soundBtn").addEventListener("click", toggleSound);
+}
+
+function handleMouseMove(e) {
+    if (gameState.isPaused) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const mouseY = e.clientY - rect.top;
+    
+    // Smooth paddle movement
+    const targetY = mouseY - playerPaddle.height / 2;
+    playerPaddle.y += (targetY - playerPaddle.y) * 0.2;
+    
+    // Keep paddle within court bounds
+    playerPaddle.y = Math.max(0, Math.min(COURT_HEIGHT - playerPaddle.height, playerPaddle.y));
+}
+
+function handleClick() {
+    if (gameState.isPaused) return;
+    
+    if (gameState.isServing && gameState.serveTimer <= 0) {
+        serveBall();
+    } else if (ball.inPlay && isPlayerHitting()) {
+        hitBall();
+    }
+}
+
+// Game mechanics
+function serveBall() {
+    ball.inPlay = true;
+    gameState.isServing = false;
+    gameState.rallyCount = 0;
+    
+    // Serve from the correct position
+    ball.x = gameState.playerServing ? 120 : COURT_WIDTH - 120;
+    ball.y = COURT_HEIGHT / 2;
+    
+    // Serve with slight upward angle
+    const angle = gameState.playerServing ? 0 : Math.PI;
+    const serveSpeed = ball.speed * 1.2;
+    ball.dx = Math.cos(angle) * serveSpeed;
+    ball.dy = -2;
+    
+    sounds.serve.play();
+}
+
+function hitBall() {
+    if (!isPlayerHitting()) return;
+    
+    // Calculate hit angle based on where the ball hits the paddle
+    const hitPosition = (ball.y - playerPaddle.y) / playerPaddle.height;
+    const angle = (hitPosition - 0.5) * Math.PI / 3;
+    
+    // Add spin based on hit position
+    ball.spin = (hitPosition - 0.5) * 0.5;
+    
+    // Increase speed slightly with each hit
+    const currentSpeed = Math.min(ball.speed + 0.2, ball.maxSpeed);
+    
+    ball.dx = Math.cos(angle) * currentSpeed;
+    ball.dy = Math.sin(angle) * currentSpeed + ball.spin;
+    
+    gameState.lastHitter = 'player';
+    gameState.rallyCount++;
+    
+    sounds.hit.play();
+}
+
+function isPlayerHitting() {
+    return ball.dx < 0 && 
+           ball.x - ball.radius <= playerPaddle.x + playerPaddle.width &&
+           ball.y >= playerPaddle.y &&
+           ball.y <= playerPaddle.y + playerPaddle.height;
+}
+
+// AI Logic
+function updateAI() {
+    if (!ball.inPlay || gameState.isPaused) return;
+    
+    // Predict ball trajectory
+    const predictedY = predictBallLanding();
+    const targetY = predictedY - aiPaddle.height / 2;
+    
+    // Add some randomness to AI movement
+    const error = (Math.random() - 0.5) * gameState.rallyCount * aiPaddle.predictionError;
+    
+    // Smooth AI movement
+    aiPaddle.y += (targetY + error - aiPaddle.y) * aiPaddle.reactionTime;
+    
+    // Keep AI paddle within bounds
+    aiPaddle.y = Math.max(0, Math.min(COURT_HEIGHT - aiPaddle.height, aiPaddle.y));
+    
+    // AI hits the ball
+    if (ball.dx > 0 && 
+        ball.x + ball.radius >= aiPaddle.x &&
+        ball.y >= aiPaddle.y &&
+        ball.y <= aiPaddle.y + aiPaddle.height) {
+        
+        const hitPosition = (ball.y - aiPaddle.y) / aiPaddle.height;
+        const angle = (hitPosition - 0.5) * Math.PI / 3;
+        const currentSpeed = Math.min(ball.speed + 0.2, ball.maxSpeed);
+        
+        ball.dx = -Math.cos(angle) * currentSpeed;
+        ball.dy = Math.sin(angle) * currentSpeed;
+        
+        gameState.lastHitter = 'ai';
+        gameState.rallyCount++;
+        
+        sounds.hit.play();
+    }
+}
+
+function predictBallLanding() {
+    if (ball.dx === 0) return COURT_HEIGHT / 2;
+    
+    const timeToReachAI = (aiPaddle.x - ball.x) / ball.dx;
+    return ball.y + ball.dy * timeToReachAI;
+}
+
+// Ball physics
+function updateBall() {
+    if (!ball.inPlay || gameState.isPaused) return;
+    
+    // Update position
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+    
+    // Apply spin effect
+    ball.dy += ball.spin * 0.1;
+    ball.spin *= 0.95;
+    
+    // Bounce off top and bottom
+    if (ball.y - ball.radius <= 0 || ball.y + ball.radius >= COURT_HEIGHT) {
+        ball.dy = -ball.dy * 0.95;
+        ball.y = ball.y - ball.radius <= 0 ? ball.radius : COURT_HEIGHT - ball.radius;
+    }
+    
+    // Check for scoring
+    if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= COURT_WIDTH) {
+        handleScore();
+    }
+    
+    // Kitchen rule
+    if (ball.x > COURT.netX && ball.x < COURT.netX + COURT.kitchenWidth) {
+        if (ball.y < COURT.kitchenHeight && gameState.lastHitter === 'player') {
+            handleScore();
+        }
+    }
+}
+
+function handleScore() {
+    if (gameState.lastHitter === 'player') {
+        gameState.aiScore++;
+    } else {
+        gameState.playerScore++;
+    }
+    
+    sounds.score.play();
+    updateScoreDisplay();
+    resetBall();
+    
+    // Check for game over
+    if (gameState.playerScore >= 11 || gameState.aiScore >= 11) {
+        endGame();
+    } else {
+        startServeTimer();
+    }
+}
+
+// Drawing functions
+function drawCourt() {
+    // Court background
+    ctx.fillStyle = '#87CEEB';
+    ctx.fillRect(0, 0, COURT_WIDTH, COURT_HEIGHT);
+    
+    // Kitchen area
+    ctx.fillStyle = '#FF8C00';
+    ctx.fillRect(COURT.netX, 0, COURT.kitchenWidth, COURT.kitchenHeight);
+    
+    // Net
+    ctx.fillStyle = '#333';
+    ctx.fillRect(COURT.netX, 0, NET_WIDTH, COURT_HEIGHT);
+    
+    // Court lines
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(0, 0, COURT_WIDTH, COURT_HEIGHT);
+}
+
+function drawPaddle(paddle) {
+    ctx.fillStyle = '#4CAF50';
+    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+    
+    // Paddle shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillRect(paddle.x + 2, paddle.y + 2, paddle.width, paddle.height);
+}
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffeb3b';
+    ctx.fill();
+    
+    // Ball shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.beginPath();
+    ctx.arc(ball.x + 2, ball.y + 2, ball.radius, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+// Game loop
+function gameLoop() {
+    if (!gameState.isPaused) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        drawCourt();
+        drawPaddle(playerPaddle);
+        drawPaddle(aiPaddle);
+        drawBall();
+        
+        updateAI();
+        updateBall();
+    }
+    
+    requestAnimationFrame(gameLoop);
+}
+
+// Utility functions
+function resetBall() {
+    ball.inPlay = false;
+    gameState.isServing = true;
+    ball.x = gameState.playerServing ? 120 : COURT_WIDTH - 120;
+    ball.y = COURT_HEIGHT / 2;
+    ball.dx = 0;
+    ball.dy = 0;
+    ball.spin = 0;
+}
+
 function startServeTimer() {
-    serveTimer = 3;
-    document.getElementById("serveTimer").innerText = serveTimer;
-    let countdown = setInterval(() => {
-        serveTimer--;
-        document.getElementById("serveTimer").innerText = serveTimer;
-        if (serveTimer <= 0) {
-            clearInterval(countdown);
-            serveReady = true;
+    gameState.serveTimer = 3;
+    updateServeTimer();
+    
+    const timer = setInterval(() => {
+        gameState.serveTimer--;
+        updateServeTimer();
+        
+        if (gameState.serveTimer <= 0) {
+            clearInterval(timer);
         }
     }, 1000);
 }
 
-// Court and Background, maybe change to own image?
-function drawCourt() {
-    ctx.fillStyle = "#4CAF50"; // Area around the court
-    ctx.fillRect(0, canvas.height, canvas.width, 100);
-
-    ctx.fillStyle = "#87CEEB"; // Light blue court
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#FF8C00"; // Orange Kitchen
-    ctx.fillRect(netX - kitchenWidth, 0, kitchenWidth * 2, canvas.height);
-
-    ctx.fillStyle = "black"; // Net in center
-    ctx.fillRect(netX, 0, 10, canvas.height);
+function updateServeTimer() {
+    const timerElement = document.querySelector('.timer-value');
+    if (timerElement) {
+        timerElement.textContent = gameState.serveTimer;
+    }
 }
 
-// *Make Paddles
-function drawPaddle(paddle) {
-    ctx.fillStyle = "#008000";
-    ctx.fillRect(paddle.x, paddle.y, paddleWidth, paddleHeight);
+function updateScoreDisplay() {
+    document.getElementById("playerScore").textContent = gameState.playerScore;
+    document.getElementById("aiScore").textContent = gameState.aiScore;
 }
 
-// **Draw Ball**
-function drawBall() {
-    ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffeb3b";
-    ctx.fill();
-    ctx.closePath();
+function togglePause() {
+    gameState.isPaused = !gameState.isPaused;
+    document.getElementById("gameOverlay").classList.toggle("active");
 }
 
-// **Move AI Paddle (Pong Style), maybe change to different
-function moveAIPaddle() {
-    if (ball.dx > 0 && ballInPlay) {
-        let targetY = ball.y - paddleHeight / 2;
-        aiPaddle.y += (targetY - aiPaddle.y) * 0.08; // AI follows the ball smoothly
-
-        // AI moves back and forth based on ball position
-        if (ball.x > canvas.width / 2 + 50) {
-            aiPaddle.x = initialAiX;
-        } else {
-            aiPaddle.x = canvas.width - 140;
-        }
-
-        // AI can hit the ball
-        if (
-            ball.y > aiPaddle.y &&
-            ball.y < aiPaddle.y + paddleHeight &&
-            ball.x + ballRadius > aiPaddle.x
-        ) {
-            ball.dx = -Math.max(ball.speed, 1.2); // Slower AI return speed
-            ball.dy += (ball.y - (aiPaddle.y + paddleHeight / 2)) * 0.1;
-            lastHitter = "ai";
-            ball.bounced = false;
-        }
-    }
-
-    aiPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, aiPaddle.y));
-}
-
-// **Move Player Paddle**
-canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    playerPaddle.y = e.clientY - rect.top - paddleHeight / 2;
-    playerPaddle.x = e.clientX - rect.left - paddleWidth / 2;
-
-    playerPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, playerPaddle.y));
-    playerPaddle.x = Math.max(20, Math.min(canvas.width / 2 - 40, playerPaddle.x));
-});
-
-// **Click to Hit Ball**
-canvas.addEventListener("click", () => {
-    if (!ballInPlay && serveReady) {
-        serveBall();
-    } else if (
-        ball.dx < 0 &&
-        ball.x - ballRadius < playerPaddle.x + paddleWidth &&
-        ball.y > playerPaddle.y &&
-        ball.y < playerPaddle.y + paddleHeight
-    ) {
-        let hitAngle = (ball.y - (playerPaddle.y + paddleHeight / 2)) * 0.15;
-        ball.dx = Math.min(ball.speed + ball.acceleration, ball.maxSpeed);
-        ball.dy = hitAngle; // Ball moves based on paddle hit
-        lastHitter = "player";
-        ball.bounced = false;
-    }
-});
-
-// **Serve the Ball**
-function serveBall() {
-    ball.dx = playerServing ? ball.speed : -ball.speed;
-    ball.dy = 0; // Ball moves forward first
-    ballInPlay = true;
-    serveReady = false;
-    ball.bounced = false;
-}
-
-// **Update Ball Movement**
-function updateBall() {
-    if (!ballInPlay) return;
-
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-
-    if (ball.x < netX && ball.dx < 0 && ball.y > 0 && ball.y < canvas.height) {
-        ball.dx = -ball.speed;
-    }
-
-    // Bounce Detection (only when ball reaches other side)
-    if (ball.x > canvas.width / 2 && !ball.bounced) {
-        ball.dy *= ball.bounceReduction; // Reduce bounce height
-        ball.bounced = true;
-    }
-
-   // **Out of Bounds Rule - Handles Sidelines & Backlines**
-if (ball.x < 0 || ball.x > canvas.width || ball.y < 0 || ball.y > canvas.height) {
-    if (lastHitter === "player") {
-        if (playerServing) {
-            playerScore++; // Player gets +1 if they were serving
-        }
-        playerServing = false; // AI gets next serve
-    } else {
-        if (!playerServing) {
-            aiScore++; // AI gets +1 if they were serving
-        }
-        playerServing = true; // Player gets next serve
-    }
+function toggleSound() {
+    const soundBtn = document.getElementById("soundBtn");
+    const isMuted = soundBtn.querySelector("i").classList.contains("fa-volume-mute");
     
-    resetCourt(); // Reset the game after the ball goes out
-    return;
+    soundBtn.querySelector("i").className = isMuted ? "fas fa-volume-up" : "fas fa-volume-mute";
+    Howler.mute(!isMuted);
 }
 
-
-    updateScoreDisplay();
+function endGame() {
+    gameState.gameOver = true;
+    const winner = gameState.playerScore > gameState.aiScore ? "Player" : "AI";
+    
+    const overlay = document.getElementById("gameOverlay");
+    overlay.querySelector("h2").textContent = `${winner} Wins!`;
+    overlay.classList.add("active");
 }
 
-// **Reset Court**
-function resetCourt() {
-    ballInPlay = false;
-    serveReady = false;
-
-    if (playerScore >= 11 || aiScore >= 11) {
-        endGame();
-        return;
-    }
-
-    playerServing = !playerServing;
-    ball.x = playerServing ? playerServeX : aiServeX;
-    ball.y = playerServing ? playerServeY : aiServeY;
-
-    playerPaddle.x = initialPlayerX;
-    playerPaddle.y = initialPlayerY;
-    aiPaddle.x = initialAiX;
-    aiPaddle.y = initialAiY;
-
-    startServeTimer();
-}
-
-// **Game Loop**
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCourt();
-    drawPaddle(playerPaddle);
-    drawPaddle(aiPaddle);
-    drawBall();
-    moveAIPaddle();
-    updateBall();
-    requestAnimationFrame(gameLoop);
-}
-
-// **Start Game**
-startServeTimer();
+// Start the game
+initGame();
 gameLoop();
-
