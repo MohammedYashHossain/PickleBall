@@ -7,138 +7,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pickle.io - Play Now</title>
+    <title>Pickle.io - Play Pickleball Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <header class="main-header">
         <div class="container">
-            <h1><i class="fas fa-table-tennis"></i> Pickle.io</h1>
-            <nav>
+            <div class="logo">
+                <img src="Logo 1.png" alt="Pickle.io Logo" class="logo-img">
+            </div>
+            <nav class="main-nav">
                 <ul>
-                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="#play-menu"><i class="fas fa-play"></i> Play Now</a></li>
-                    <li><a href="#login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#play" class="nav-link">Play Now</a></li>
+                    <li><a href="#login" class="btn btn-outline">Login</a></li>
                 </ul>
             </nav>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Join the Ultimate Online Pickleball Experience!</h2>
-                <p>Play online and enjoy pickleball from the comfort of your own home.</p>
-                <a href="game.html" class="btn"><i class="fas fa-play-circle"></i> Play Now!</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="features">
-        <div class="container">
-            <div class="feature-grid">
-                <div class="feature">
-                    <i class="fas fa-users"></i>
-                    <h3>Multiplayer</h3>
-                    <p>Play with friends or match with players worldwide</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Tournaments</h3>
-                    <p>Compete in daily and weekly tournaments</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-palette"></i>
-                    <h3>Customization</h3>
-                    <p>Personalize your paddle and character</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="login">
-        <div class="container">
-            <h2><i class="fas fa-user"></i> Login to Your Account</h2>
-            <form>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                
-                <button type="submit">Login <i class="fas fa-arrow-right"></i></button>
-                <p class="form-footer">Don't have an account? <a href="#signup">Sign Up!</a></p>
-            </form>
-        </div>
-    </section>
-
-    <section id="signup">
-        <div class="container">
-            <h2><i class="fas fa-user-plus"></i> Create an Account</h2>
-            <form>
-                <div class="form-group">
-                    <label for="new-username">Username</label>
-                    <input type="text" id="new-username" name="new-username" placeholder="Choose a username" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="new-password">Password</label>
-                    <input type="password" id="new-password" name="new-password" placeholder="Choose a password" required>
-                </div>
-
-                <button type="submit">Sign Up <i class="fas fa-arrow-right"></i></button>
-            </form>
-        </div>
-    </section>
-
-    <section id="play-menu">
-        <div class="container">
-            <h2><i class="fas fa-table-tennis"></i> Select Your Paddle</h2>
-            <div class="maps">
-                <div class="map">
-                    <div class="map-image">
-                        <img src="images/Paddle Template.png" alt="Classic Paddle">
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Play Pickleball</span>
+                        <br>Anywhere, Anytime
+                    </h1>
+                    <p class="hero-subtitle">Experience the fastest-growing sport in America from the comfort of your browser</p>
+                    <div class="hero-cta">
+                        <a href="game.html" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            Play Now
+                        </a>
+                        <a href="#features" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Learn More
+                        </a>
                     </div>
-                    <h3>Classic Paddle</h3>
-                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
-                </div>
-                <div class="map">
-                    <div class="map-image">
-                        <img src="images/olympics.png" alt="Aqua Paddle">
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Active Players</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Games Played</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4.8</span>
+                            <span class="stat-label">User Rating</span>
+                        </div>
                     </div>
-                    <h3>Aqua Paddle</h3>
-                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
                 </div>
-                <div class="map">
-                    <div class="map-image">
-                        <img src="images/arctic.png" alt="Flame Paddle">
-                    </div>
-                    <h3>Flame Paddle</h3>
-                    <button class="map-btn">Select <i class="fas fa-check"></i></button>
+                <div class="hero-image">
+                    <img src="Logo 1.png" alt="Pickleball Game Preview" class="floating">
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="section-title">Why Play Pickle.io?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>Realistic Physics</h3>
+                        <p>Experience authentic pickleball gameplay with realistic ball physics and paddle interactions</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Smart AI</h3>
+                        <p>Challenge our advanced AI that adapts to your playing style and skill level</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Daily Tournaments</h3>
+                        <p>Compete in daily tournaments and climb the global leaderboard</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Multiplayer</h3>
+                        <p>Play with friends or match with players from around the world</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="play" class="play-section">
+            <div class="container">
+                <h2 class="section-title">Choose Your Paddle</h2>
+                <div class="paddles-grid">
+                    <div class="paddle-card">
+                        <div class="paddle-image">
+                            <img src="Paddle Template.png" alt="Classic Paddle">
+                        </div>
+                        <h3>Classic Paddle</h3>
+                        <p>Perfect for beginners</p>
+                        <a href="game.html" class="btn btn-primary">Select</a>
+                    </div>
+                    <div class="paddle-card featured">
+                        <div class="paddle-image">
+                            <img src="Paddle Template.png" alt="Pro Paddle">
+                        </div>
+                        <h3>Pro Paddle</h3>
+                        <p>Enhanced control and power</p>
+                        <a href="game.html" class="btn btn-primary">Select</a>
+                    </div>
+                    <div class="paddle-card">
+                        <div class="paddle-image">
+                            <img src="Paddle Template.png" alt="Elite Paddle">
+                        </div>
+                        <h3>Elite Paddle</h3>
+                        <p>Maximum performance</p>
+                        <a href="game.html" class="btn btn-primary">Select</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login" class="login-section">
+            <div class="container">
+                <div class="login-container">
+                    <div class="login-content">
+                        <h2>Join the Community</h2>
+                        <p>Create an account to track your progress, compete in tournaments, and connect with other players.</p>
+                        <div class="login-features">
+                            <div class="login-feature">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Track Progress</span>
+                            </div>
+                            <div class="login-feature">
+                                <i class="fas fa-trophy"></i>
+                                <span>Compete in Tournaments</span>
+                            </div>
+                            <div class="login-feature">
+                                <i class="fas fa-users"></i>
+                                <span>Connect with Players</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <p class="form-footer">Don't have an account? <a href="#signup">Sign Up</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2025 Pickle.io. All rights reserved. Created By: Mohammed Hossain</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <div class="footer-brand">
+                    <img src="Logo 1.png" alt="Pickle.io Logo" class="footer-logo">
+                    <p>Play pickleball online with players from around the world.</p>
                 </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#play">Play Now</a></li>
+                            <li><a href="#login">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pickle.io. All rights reserved. Created by Mohammed Hossain</p>
             </div>
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
