@@ -8,7 +8,7 @@
     --accent-color: #FF9800;
     --text-color: #333;
     --text-light: #666;
-    --background-color: #f5f5f5;
+    --background-color: #e8f5e9;
     --white: #ffffff;
     --gradient-start: #4CAF50;
     --gradient-end: #2196F3;
@@ -174,7 +174,7 @@ body {
 /* Hero Section */
 .hero-section {
     padding: 160px 0 80px;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
     position: relative;
     overflow: hidden;
 }
@@ -211,25 +211,7 @@ body {
 }
 
 .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-number {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--text-light);
+    display: none;
 }
 
 .hero-image {

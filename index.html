@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,14 +21,13 @@
     <header class="main-header">
         <div class="container">
             <div class="logo">
-                <img src="Logo 1.png" alt="Pickle.io Logo" class="logo-img">
+                <h1>Pickle.io</h1>
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#features" class="nav-link">Features</a></li>
                     <li><a href="#play" class="nav-link">Play Now</a></li>
-                    <li><a href="#login" class="btn btn-outline">Login</a></li>
+                    <li><a href="#login" class="nav-link">Login</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn">
@@ -49,7 +48,7 @@
                     </h1>
                     <p class="hero-subtitle">Experience the fastest-growing sport in America from the comfort of your browser</p>
                     <div class="hero-cta">
-                        <a href="game.html" class="btn btn-primary">
+                        <a href="#play" class="btn btn-primary">
                             <i class="fas fa-play"></i>
                             Play Now
                         </a>
@@ -58,23 +57,9 @@
                             Learn More
                         </a>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">10K+</span>
-                            <span class="stat-label">Active Players</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50K+</span>
-                            <span class="stat-label">Games Played</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">4.8</span>
-                            <span class="stat-label">User Rating</span>
-                        </div>
-                    </div>
                 </div>
                 <div class="hero-image">
-                    <img src="Logo 1.png" alt="Pickleball Game Preview" class="floating">
+                    <img src="Paddle Template.png" alt="Pickleball Paddle" class="floating">
                 </div>
             </div>
         </section>
@@ -119,29 +104,29 @@
             <div class="container">
                 <h2 class="section-title">Choose Your Paddle</h2>
                 <div class="paddles-grid">
-                    <div class="paddle-card">
+                    <div class="paddle-card" data-paddle="classic">
                         <div class="paddle-image">
                             <img src="Paddle Template.png" alt="Classic Paddle">
                         </div>
                         <h3>Classic Paddle</h3>
                         <p>Perfect for beginners</p>
-                        <a href="game.html" class="btn btn-primary">Select</a>
+                        <a href="game.html" class="btn btn-primary" onclick="selectPaddle('classic')">Select</a>
                     </div>
-                    <div class="paddle-card featured">
+                    <div class="paddle-card featured" data-paddle="pro">
                         <div class="paddle-image">
                             <img src="Paddle Template.png" alt="Pro Paddle">
                         </div>
                         <h3>Pro Paddle</h3>
                         <p>Enhanced control and power</p>
-                        <a href="game.html" class="btn btn-primary">Select</a>
+                        <a href="game.html" class="btn btn-primary" onclick="selectPaddle('pro')">Select</a>
                     </div>
-                    <div class="paddle-card">
+                    <div class="paddle-card" data-paddle="elite">
                         <div class="paddle-image">
                             <img src="Paddle Template.png" alt="Elite Paddle">
                         </div>
                         <h3>Elite Paddle</h3>
                         <p>Maximum performance</p>
-                        <a href="game.html" class="btn btn-primary">Select</a>
+                        <a href="game.html" class="btn btn-primary" onclick="selectPaddle('elite')">Select</a>
                     </div>
                 </div>
             </div>
@@ -191,14 +176,13 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="Logo 1.png" alt="Pickle.io Logo" class="footer-logo">
+                    <h2>Pickle.io</h2>
                     <p>Play pickleball online with players from around the world.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="#about">About</a></li>
                             <li><a href="#features">Features</a></li>
                             <li><a href="#play">Play Now</a></li>
                             <li><a href="#login">Login</a></li>
@@ -216,13 +200,39 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Pickle.io. All rights reserved. Created by Mohammed Hossain</p>
+                <p>&copy; 2024 Pickle.io. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="index.js"></script>
+    <script>
+        // Custom cursor effect
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 50);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('.main-nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Paddle selection
+        function selectPaddle(type) {
+            localStorage.setItem('selectedPaddle', type);
+        }
+    </script>
 </body>
 </html>
